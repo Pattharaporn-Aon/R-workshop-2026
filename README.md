@@ -69,3 +69,14 @@ disruption during 2020 and 3 missing values (rows 30, 64 and 95) for the interpo
 
 Every number printed on a slide comes from these exact files. A console that disagrees with
 the slide points to a step worth checking.
+
+## Licence and citation
+
+The R scripts are released under the [MIT licence](LICENSE). The data files in `data/` are
+synthetic teaching data released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Both may be reused for teaching with attribution.
+
+To cite these materials, use the **Cite this repository** button on this page
+(generated from [`CITATION.cff`](CITATION.cff)).
+
+![QR code for this repository](assets/qr_github.png)

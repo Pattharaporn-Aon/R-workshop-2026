@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite them as below."
+title: "Practical Data Analysis and Forecasting with R for Social and Educational Research: workshop data and R scripts"
+type: dataset
+authors:
+  - family-names: Thongnim
+    given-names: Pattharaporn
+    affiliation: "Department of Mathematics, Faculty of Science, Burapha University"
+    orcid: "https://orcid.org/0000-0001-8904-3979"
+repository-code: "https://github.com/Pattharaporn-Aon/R-workshop-2026"
+license: MIT
+date-released: 2026-10-07
+keywords:
+  - R
+  - data analysis
+  - forecasting
+  - time series
+  - education research
+  - teaching materials

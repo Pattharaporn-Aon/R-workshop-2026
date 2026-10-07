@@ -93,15 +93,28 @@ accuracy(fcC, test)
 
 # ---------------------------------------------------------------- 4.9
 # Automated preprocessing with atspR
-# (gap filling, outlier handling and feature building in one step)
+# (gap filling, imputation, temporal split, scaling and walk-forward
+#  cross-validation in one call)
+# Remove the # at the start of each line to run this section.
 #
 # install.packages("devtools")
-# devtools::install_github("<your-github-account>/atspR")
+# devtools::install_github("EasternTechFusion/atspR")
 #
 # library(atspR)
-# clean <- atsp_prepare(edu, date = "Date", value = "AttendanceRate")
-# fit   <- atsp_forecast(clean, h = 12)
-# plot(fit)
+# raw <- as.data.frame(read_csv(paste0(data_url, "education_timeseries.csv")))
+# raw <- raw[, c("Date", "AttendanceRate")]      # the 3 gaps are still here
+# raw$Date <- as.Date(raw$Date)
+#
+# gap <- fill_time_gaps(raw, time_col = "Date", n = 1, unit = "month")
+# fit <- ts_preprocess(data          = gap$data,
+#                      train_ratio   = 0.8,
+#                      impute_method = "linear",
+#                      target_col    = "AttendanceRate",
+#                      lags          = 12,
+#                      model_type    = "lm",
+#                      k_folds       = 5)
+# fit$imputation_report   # what was filled, and how
+# fit$cv_summary          # walk-forward cross-validation scores
 
 # ---------------------------------------------------------------- 4.10
 # Refit on ALL the data and forecast the next 12 months

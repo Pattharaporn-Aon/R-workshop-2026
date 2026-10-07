@@ -45,6 +45,8 @@ aggregate(Posttest ~ Region, data = students, FUN = mean)
 t.test(Posttest ~ Gender, data = students)
 #   t = -0.4023, df = 288.61, p = 0.6878  -> no evidence of a difference
 
+cohens_d(Posttest ~ Gender, data = students)   # d = -0.05
+
 # ---------------------------------------------------------------- 3.4
 # ONE-WAY ANOVA: three or more groups
 model1 <- aov(Posttest ~ Method, data = students)
@@ -93,6 +95,29 @@ plot(model3)
 par(mfrow = c(1, 1))
 
 # ---------------------------------------------------------------- 3.8
+# WHEN ASSUMPTIONS FAIL: rank-based alternatives          (slide 91)
+wilcox.test(Posttest ~ Region, data = students)                   # Mann-Whitney U
+#   W = 7277, p = 2.0e-06
+wilcox.test(students$Posttest, students$Pretest, paired = TRUE)   # Wilcoxon signed-rank
+#   V = 44960, p < 2.2e-16
+kruskal.test(Posttest ~ Method, data = students)                  # Kruskal-Wallis
+#   chi-squared = 16.382, df = 2, p = 0.000277
+cor.test(students$StudyHours, students$Posttest,
+         method = "spearman", exact = FALSE)                      # Spearman
+#   rho = 0.263, p = 4.1e-06
+
+# ---------------------------------------------------------------- 3.9
+# CATEGORICAL OUTCOMES: pass or fail                       (slide 92)
+students$Pass <- ifelse(students$Posttest >= 60, "Pass", "Fail")
+table(students$Method, students$Pass)
+#                Fail Pass
+#   Blended        17   83
+#   Flipped        18   95
+#   Traditional    33   54
+chisq.test(table(students$Method, students$Pass))
+#   X-squared = 16.323, df = 2, p = 0.000286
+
+# ---------------------------------------------------------------- 3.10
 # EXERCISE
 # 1. Test whether Motivation differs by Method (one-way ANOVA).
 # 2. Run a paired t-test for the Flipped group only.

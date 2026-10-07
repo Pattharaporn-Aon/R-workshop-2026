@@ -127,3 +127,31 @@ summary(students$Attendance)
 # Save the cleaned version on your own computer
 write.csv(students, "students_clean.csv", row.names = FALSE)
 # The same cleaned file is also on GitHub, so 02 and 03 run on their own.
+
+# =====================================================================
+#  DPLYR: the same work in words you can read aloud     (slides 30-31)
+#  Taught with the R fundamentals; run it here, once `students` exists.
+# =====================================================================
+
+library(dplyr)
+
+# ---------------------------------------------------------------- 1.10
+# Five verbs
+filter(students, Region == "Urban")            # keep the rows that match
+select(students, Method, Posttest)             # keep the columns you name
+mutate(students, Gain = Posttest - Pretest)    # add a computed column
+arrange(students, desc(Posttest))              # sort, highest first
+summarise(students, m = mean(Posttest))        # many rows -> one summary
+
+# group_by() is the sixth: one summary row per group
+summarise(group_by(students, Method), m = mean(Posttest))
+
+# ---------------------------------------------------------------- 1.11
+# The pipe |> reads as "and then"
+students |>
+  filter(Region == "Urban") |>
+  group_by(Method) |>
+  summarise(n = n(), mean_post = mean(Posttest))
+#   Blended      57   71.8
+#   Flipped      72   72.9
+#   Traditional  52   66.6

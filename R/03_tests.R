@@ -63,8 +63,8 @@ plot(TukeyHSD(model1))
 # TWO-WAY ANOVA: two factors and their interaction
 model2 <- aov(Posttest ~ Method * Region, data = students)
 summary(model2)
-#   Method        F = 8.329,  p = 0.000303
-#   Region        F = 23.730, p = 1.97e-06
+#   Method        F = 8.703,  p = 0.000213
+#   Region        F = 23.730, p = 1.81e-06
 #   Method:Region F = 0.056,  p = 0.946   -> no interaction
 
 # ---------------------------------------------------------------- 3.6

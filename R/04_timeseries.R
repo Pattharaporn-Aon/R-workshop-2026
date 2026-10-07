@@ -79,9 +79,9 @@ accuracy(fitB, test)
 
 #   model              RMSE     MAE     MAPE
 #   trend + season    1.2505  1.1192   1.23 %
-#   seasonal naive    1.1734  0.8656   0.95 %
+#   seasonal naive    1.2579  0.9871   1.09 %
 #
-#   The simple baseline wins. Always fit the baseline first.
+#   A near tie. The baseline wins on MAE and MAPE. Always fit the baseline first.
 
 # ---------------------------------------------------------------- 4.8
 # MODEL C: let R choose the ARIMA structure for you

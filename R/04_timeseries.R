@@ -126,7 +126,7 @@ future <- data.frame(t = 121:132, MonthF = factor(1:12, levels = 1:12))
 fc     <- predict(modelFull, newdata = future, interval = "prediction")
 round(fc, 2)
 #   Jan 2025  89.58  [87.12, 92.05]
-#   Sep 2025  93.11  [90.65, 95.57]
+#   Sep 2025  93.11  [90.64, 95.57]
 
 # ---------------------------------------------------------------- 4.11
 # EXERCISE

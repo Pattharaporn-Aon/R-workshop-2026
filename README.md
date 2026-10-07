@@ -1,7 +1,7 @@
 # Practical Data Analysis and Forecasting with R
 ### for Social and Educational Research — two-day workshop materials
 
-Pattharaporn Thongnim · Department of Mathematics, Faculty of Science, Burapha University
+Pattharaporn Thongnim - Department of Mathematics, Faculty of Science, Burapha University
 
 Every script reads its data directly from this repository. Open a script in
 RStudio and run it. There is nothing to download and no `setwd()` to set.

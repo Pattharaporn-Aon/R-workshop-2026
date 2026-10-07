@@ -6,9 +6,116 @@ Pattharaporn Thongnim - Department of Mathematics, Faculty of Science, Burapha U
 Every script reads its data directly from this repository. Open a script in
 RStudio and run it. There is nothing to download and no `setwd()` to set.
 
+## Before the workshop: install R and RStudio
+
+**No programming experience is needed.** Please do these steps at home before the first
+day. They take about 20 minutes and need a good internet connection. If anything goes
+wrong, stop and bring your laptop to the workshop. We will fix it together.
+
+You need two programs, and the order matters.
+
+- **R** is the program that does the calculations. Install it **first**.
+- **RStudio** is the window you work in. Install it **second**. It cannot work without R.
+
+### Step 1. Check your computer
+
+- **Windows:** press the **Windows key**, type `winver` and press **Enter**. The window shows
+  Windows 10 or Windows 11. The current RStudio needs **Windows 11**. Windows 10 users, see
+  [Problems and solutions](#problems-and-solutions).
+- **Mac:** click the **Apple menu** (top-left corner of the screen) → **About This Mac**. Write down two things.
+  - **Chip:** "Apple M1, M2, M3 or M4" means *Apple silicon*. "Intel" means *Intel*.
+  - **macOS version:** you need macOS 14 (Sonoma) or newer for the current RStudio.
+    If your Mac is older, see [Problems and solutions](#problems-and-solutions).
+
+### Step 2. Install R
+
+1. Open <https://cran.r-project.org>. Download R only from this official site.
+2. Choose your system.
+
+| Your computer | Click | Then download |
+|---|---|---|
+| Windows | **Download R for Windows** → **base** | **Download R-4.x.x for Windows** (a file ending in `.exe`) |
+| Mac with Apple silicon | **Download R for macOS** | the file ending in **`-arm64.pkg`** |
+| Mac with Intel | **Download R for macOS** | the file ending in **`-x86_64.pkg`** |
+
+3. Open the file you downloaded.
+   - **Windows:** click **Yes** if Windows asks for permission. Then click **Next** on every
+     screen and **Finish** at the end. Do not change any setting.
+   - **Mac:** click **Continue** on every screen, then **Agree**, then **Install**. Type your
+     Mac password when asked. Click **Close** at the end.
+
+### Step 3. Install RStudio
+
+1. Open <https://posit.co/download/rstudio-desktop>.
+2. The page opens at a table called **Direct Downloads (Open Source)**, under the heading
+   **RStudio IDE**. Click the file name in the row for your computer.
+   - **Windows 11:** the file ending in **`.exe`**
+   - **Mac (macOS 14 or newer):** the file ending in **`.dmg`**
+3. Open the file you downloaded.
+   - **Windows:** click **Yes**, then **Next** on every screen, then **Finish**.
+   - **Mac:** a window opens with the RStudio icon and an **Applications** folder.
+     **Drag the RStudio icon onto the Applications folder.** Wait until copying finishes.
+     Then eject the "RStudio" disk in Finder.
+4. Open RStudio.
+   - **Windows:** Start menu → **RStudio**.
+   - **Mac:** Finder → **Applications** → **RStudio**. The first time, macOS asks
+     *"RStudio is an app downloaded from the Internet. Are you sure you want to open it?"*
+     Click **Open**.
+
+### Step 4. Check that R works
+
+RStudio has four panels. Find the **Console** (usually bottom left). The first line should
+read **R version 4.x.x**. That means RStudio has found R.
+
+Click inside the Console, type the line below and press **Enter**.
+
+```r
+R.version.string
+```
+
+R should answer with its version number. If it does, R and RStudio are installed.
+
+### Step 5. Install the workshop packages
+
+Copy the line below. Click inside the Console, paste it (**Ctrl + V** on Windows,
+**Cmd + V** on Mac) and press **Enter**.
+
+```r
+source("https://raw.githubusercontent.com/Pattharaporn-Aon/R-workshop-2026/main/R/00_setup.R")
+```
+
+This takes **3 to 5 minutes**. A lot of red text will scroll past. **Red text is normal here.
+It is not an error.** Wait until the Console shows the `>` sign again.
+
+You are ready when the last two lines say:
+
+```
+All packages loaded. You are ready.
+Data loaded from GitHub. You are ready.
+```
+
+### Problems and solutions
+
+| What you see | What to do |
+|---|---|
+| RStudio opens but says it cannot find R | R is not installed, or was installed after RStudio. Install R (Step 2), then close and reopen RStudio. |
+| A Mac says the app "cannot be opened" | Finder → Applications → right-click **RStudio** → **Open** → **Open**. |
+| On a Mac, RStudio disappears after a restart | RStudio was opened from the download window instead of Applications. Repeat Step 3 and drag it onto **Applications**. |
+| Your Mac is older than macOS 14, or you use Windows 10 | R still installs normally (Step 2). The current RStudio does not. Use RStudio in your web browser instead (see the row about [posit.cloud](https://posit.cloud) below), or bring the laptop and we will install an older RStudio together. |
+| **Windows:** packages fail to install and the error shows a folder path with Russian or Kazakh letters | Your Windows user name is not in Latin letters. Paste the two lines below into the Console, press Enter, then close and reopen RStudio. Then repeat Step 5. |
+| You cannot install programs on this computer (for example, a work laptop) | Use RStudio in your web browser instead. Create a free account at <https://posit.cloud>, click **New Project → New RStudio Project**, and do Step 5 there. |
+| Something else | Take a screenshot of the Console and send it to the instructor before the workshop. |
+
+Fix for a Windows user name in Russian or Kazakh letters:
+
+```r
+dir.create("C:/Rlib")
+cat('R_LIBS_USER="C:/Rlib"\n', file = file.path(Sys.getenv("R_USER"), ".Renviron"))
+```
+
 ## Quick start
 
-1. Install R and RStudio (slides 6–7).
+1. Install R and RStudio. Follow [Before the workshop](#before-the-workshop-install-r-and-rstudio) above.
 2. Run the setup script once. It installs the packages and checks that R can reach the data:
 
    ```r

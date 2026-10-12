@@ -8,7 +8,9 @@ authors:
     affiliation: "Department of Mathematics, Faculty of Science, Burapha University"
     orcid: "https://orcid.org/0000-0001-8904-3979"
 repository-code: "https://github.com/Pattharaporn-Aon/R-workshop-2026"
-license: MIT
+license:
+  - MIT
+  - CC-BY-4.0
 date-released: 2026-10-07
 keywords:
   - R

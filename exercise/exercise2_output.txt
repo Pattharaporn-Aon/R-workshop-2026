@@ -1,0 +1,132 @@
+
+> library(readr)
+
+> library(effectsize)
+
+> data_url <- "./"
+
+> students <- read_csv(paste0(data_url, "students_clean.csv"))
+
+
+> students$Method <- factor(students$Method, levels = c("Traditional", 
++     "Blended", "Flipped"))
+
+> modelM <- aov(Motivation ~ Method, data = students)
+
+> summary(modelM)
+             Df Sum Sq Mean Sq F value Pr(>F)
+Method        2    1.8  0.8992   2.015  0.135
+Residuals   297  132.6  0.4463               
+
+> eta_squared(modelM)
+For one-way between subjects designs, partial eta squared is equivalent to eta squared.
+  Returning eta squared.
+# Effect Size for ANOVA
+
+Parameter | Eta2 |       95% CI
+-------------------------------
+Method    | 0.01 | [0.00, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
+> TukeyHSD(modelM)
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = Motivation ~ Method, data = students)
+
+$Method
+                          diff        lwr        upr     p adj
+Blended-Traditional -0.1944034 -0.4251165 0.03630965 0.1177234
+Flipped-Traditional -0.0800946 -0.3045485 0.14435933 0.6781138
+Flipped-Blended      0.1143088 -0.1017448 0.33036252 0.4269487
+
+
+> aggregate(Motivation ~ Method, data = students, FUN = mean)
+       Method Motivation
+1 Traditional   3.313103
+2     Blended   3.118700
+3     Flipped   3.233009
+
+> flipped <- subset(students, Method == "Flipped")
+
+> t.test(flipped$Posttest, flipped$Pretest, paired = TRUE)
+
+	Paired t-test
+
+data:  flipped$Posttest and flipped$Pretest
+t = 25.354, df = 112, p-value < 2.2e-16
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 17.70443 20.70619
+sample estimates:
+mean difference 
+       19.20531 
+
+
+> cohens_d(flipped$Posttest, flipped$Pretest, paired = TRUE)
+Cohen's d |       95% CI
+------------------------
+2.39      | [2.02, 2.75]
+
+> t.test(students$Posttest, students$Pretest, paired = TRUE)
+
+	Paired t-test
+
+data:  students$Posttest and students$Pretest
+t = 32.186, df = 299, p-value < 2.2e-16
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 16.16151 18.26649
+sample estimates:
+mean difference 
+         17.214 
+
+
+> model3 <- lm(Posttest ~ Pretest + StudyHours + Attendance, 
++     data = students)
+
+> model4 <- lm(Posttest ~ Pretest + StudyHours + Attendance + 
++     Method, data = students)
+
+> summary(model3)$r.squared
+[1] 0.4361838
+
+> summary(model4)$r.squared
+[1] 0.4937045
+
+> summary(model4)
+
+Call:
+lm(formula = Posttest ~ Pretest + StudyHours + Attendance + Method, 
+    data = students)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-19.5491  -5.6692   0.3675   5.9383  18.2229 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   -10.65896    8.52143  -1.251   0.2120    
+Pretest         0.90225    0.06185  14.587  < 2e-16 ***
+StudyHours      1.80731    0.23588   7.662 2.68e-13 ***
+Attendance      0.20646    0.08509   2.426   0.0159 *  
+MethodBlended   5.18580    1.18259   4.385 1.62e-05 ***
+MethodFlipped   6.39776    1.15304   5.549 6.43e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.047 on 294 degrees of freedom
+Multiple R-squared:  0.4937,	Adjusted R-squared:  0.4851 
+F-statistic: 57.34 on 5 and 294 DF,  p-value: < 2.2e-16
+
+
+> anova(model3, model4)
+Analysis of Variance Table
+
+Model 1: Posttest ~ Pretest + StudyHours + Attendance
+Model 2: Posttest ~ Pretest + StudyHours + Attendance + Method
+  Res.Df   RSS Df Sum of Sq      F   Pr(>F)    
+1    296 21198                                 
+2    294 19036  2    2162.7 16.701 1.35e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
